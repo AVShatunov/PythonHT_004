@@ -34,6 +34,29 @@
 Для реализации основного меню можно использовать пример ниже или написать свой
 """
 
+def add_buy(account, buy_list):
+    the_sum = float(input('Сумма покупки: '))
+    if the_sum > account:
+        print(f'Недостаточно средств на счете: {account}\n')
+        return 0
+    else:
+        name = input('Название покупки: ')
+        buy_list.append({'name': name, 'sum': the_sum})
+        rest = account - the_sum
+        print(f'На счете осталось {rest}\n')
+        return the_sum
+
+def show_buy_history(account, buy_list):
+    for buy in buy_list:
+        name = buy['name']
+        buy_sum = buy['sum']
+        print(f'{name}: {buy_sum}')
+    print(f'Текущий остаток не счете: {account}\n')
+
+
+buy_list = []
+account = 0.0
+
 while True:
     print('1. пополнение счета')
     print('2. покупка')
@@ -42,12 +65,14 @@ while True:
 
     choice = input('Выберите пункт меню')
     if choice == '1':
-        pass
+        account += float(input('Сумма пополнения: '))
+        print(f'Теперь на счете {account}\n')
     elif choice == '2':
-        pass
+        account -= add_buy(account, buy_list)
     elif choice == '3':
-        pass
+        show_buy_history(account, buy_list)
     elif choice == '4':
         break
     else:
         print('Неверный пункт меню')
+    pass
